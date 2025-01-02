@@ -2,7 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'SB어그로OTF';
+    src: url('../public/font/SB\ 어그로OTF\ B.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SB어그로OTF';
+    src: url('../public/font/SB\ 어그로OTF\ M.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SB어그로OTF';
+    src: url('../public/font/SB\ 어그로OTF\ L.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
 /* 모든 페이지에 배경색 지정 */
 body {
     @apply bg-gray-100;
+    font-family: 'SB어그OTF';
 }
