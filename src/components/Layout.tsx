@@ -1,10 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
+import Header from './Header';
 
 export default function Layout() {
-    return (
-        <>
-            <header>헤더</header>
-            <Outlet/>
-        </>
-    )
+  return (
+    <div>
+      <Header />
+      <Outlet />
+    </div>
+  );
 }

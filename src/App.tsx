@@ -1,12 +1,12 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Detail from "./pages/Detail";
-import CreatePage from "./pages/CreatePage";
-import UpdatePage from "./pages/UpdatePage";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-import Mypage from "./pages/MyPage";
-import Layout from "./components/Layout";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Detail from './pages/Detail';
+import CreatePage from './pages/CreatePage';
+import UpdatePage from './pages/UpdatePage';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import Mypage from './pages/MyPage';
+import Layout from './components/Layout';
 
 export default function App() {
   return (
