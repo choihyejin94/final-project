@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import zinstagram from '../../public/zinstagram.png';
+import zinstagram from '../../public/image/zinstagram.png';
 import { useState } from 'react';
 import supabase from '../utils/supabase';
 
