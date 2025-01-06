@@ -5,7 +5,9 @@ export default function Layout() {
   return (
     <div>
       <Header />
-      <Outlet />
+      <main className="max-w-6xl m-auto w-full mt-10">
+        <Outlet />
+      </main>
     </div>
   );
 }
