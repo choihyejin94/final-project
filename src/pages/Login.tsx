@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import supabase from "../utils/supabase";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import supabase from '../utils/supabase';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,14 +10,24 @@ export default function Login() {
   const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email, password,
+    if (!email) {
+      alert('이메일을 입력해주세요 !');
+      return;
+    }
+
+    if (!password) {
+      alert('비밀번호를 입력해주세요 !');
+      return;
+    }
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password
     });
     if (error) {
       console.error('supabase login error', error);
+      alert('아이디와 비밀번호를 확인해주세요 !')
       return;
-    } else {
-      console.log({ data });
     }
 
     setEmail('');
