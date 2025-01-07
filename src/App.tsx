@@ -7,8 +7,27 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Mypage from './pages/MyPage';
 import Layout from './components/Layout';
+import { useEffect } from 'react';
+import supabase from './utils/supabase';
+import { useAuthStore } from './stores/useAuthStore';
 
 export default function App() {
+  const { setUser } = useAuthStore();
+
+    useEffect(() => {
+      const {
+        data: { subscription }
+      } = supabase.auth.onAuthStateChange((_event, session) => {
+        if (session) {
+          setUser(session.user);
+        } else {
+          setUser(null);
+        }
+      });
+
+      return () => subscription.unsubscribe();
+    }, []);
+
   return (
     <BrowserRouter>
       <Routes>

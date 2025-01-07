@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import supabase from '../utils/supabase';
+import { useAuthStore } from '../stores/useAuthStore';
 
 export default function Signup() {
   const navigate = useNavigate();
+  const { setUser } = useAuthStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -41,19 +43,20 @@ export default function Signup() {
         }
       }
     });
+    console.log( data );
     if (error) {
       console.error('supabase auth error', error);
       return;
-    } 
+    }
 
-    const { data: loginData, error: loginError } = await supabase
+    const { error: loginError } = await supabase
       .from('users')
-      .insert([{ id: data.user?.id, email, nickname: nickName }])
+      .insert([{ id: data.user!.id, email, nickname: nickName }])
       .select();
     if (loginError) {
       console.error('supabase insert error', loginError);
     } else {
-      console.log('inserted data', loginData);
+      setUser({ id: data.user!.id, email, nickname: nickName, img_url: null });
     }
 
     setEmail('');
