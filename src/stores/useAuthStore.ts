@@ -1,7 +1,10 @@
 import { create } from 'zustand';
-import { Tables } from '../types/supabase';
 
-type User = Tables<'users'>
+interface User {
+  id: string;
+  email: string;
+  nickname: string;
+}
 
 interface AuthState {
   user: User | null;

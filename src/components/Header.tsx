@@ -4,12 +4,11 @@ import supabase from '../utils/supabase';
 import { useAuthStore } from '../stores/useAuthStore';
 
 export default function Header() {
-  const { user, setUser } = useAuthStore();
+  const { user } = useAuthStore();
 
   // supabase 로그아웃
   const signOutUser = async () => {
     const { error } = await supabase.auth.signOut();
-    setUser(null);
 
     if (error) {
       console.error('로그아웃 오류:', error.message);
@@ -27,7 +26,7 @@ export default function Header() {
       {user ? (
         <div className="flex items-center gap-2 mx-1.5">
           <NavLink to={'/mypage'} className="font-bold cursor-pointer hover:underline">
-            {user.user_metadata.nickName}
+            {user.nickname}
           </NavLink>
           <button
             onClick={signOutUser}
