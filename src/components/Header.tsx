@@ -1,15 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import zinstagram from '../../public/image/zinstagram.png';
-import { useState } from 'react';
 import supabase from '../utils/supabase';
+import { useAuthStore } from '../stores/useAuthStore';
 
 export default function Header() {
-  const [isUser, setIsUser] = useState(true);
+  const { user } = useAuthStore();
 
-  // supabase 로그아웃 (수정필요)
+  // supabase 로그아웃
   const signOutUser = async () => {
     const { error } = await supabase.auth.signOut();
-    setIsUser(false);
 
     if (error) {
       console.error('로그아웃 오류:', error.message);
@@ -24,11 +23,10 @@ export default function Header() {
           <img src={zinstagram} alt="zinstagram_logo" width={150} />
         </NavLink>
       </div>
-      {isUser ? (
-        // true 일 때
+      {user ? (
         <div className="flex items-center gap-2 mx-1.5">
           <NavLink to={'/mypage'} className="font-bold cursor-pointer hover:underline">
-            NickName(수정예정)
+            {user.nickname}
           </NavLink>
           <button
             onClick={signOutUser}
@@ -38,7 +36,6 @@ export default function Header() {
           </button>
         </div>
       ) : (
-        // false 일 때
         <div className="flex items-center gap-2">
           <NavLink
             to={'/Login'}
