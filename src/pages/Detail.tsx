@@ -1,4 +1,4 @@
-import FeedForm from '../components/FeedForm';
+import Feed from '../components/Feed';
 import profile_image from '../../public/image/profile_img.jpg';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -14,7 +14,7 @@ export default function Detail() {
         </Link>
       </div>
       <div>
-        <FeedForm />
+        <Feed />
       </div>
       <div className="bg-white border border-gray rounded-md flex flex-col justify-start p-8 mb-6 w-[70rem] shadow-lg">
         <div className="mb-5">
