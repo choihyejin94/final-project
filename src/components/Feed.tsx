@@ -3,7 +3,7 @@ import beforeLike from '../../public/image/before_like.png';
 import afterLike from '../../public/image/after_like.png';
 import comment from '../../public/image/comment.png';
 
-const FeedForm = () => {
+const Feed = () => {
   const [isLike, setIsLike] = useState(false);
 
   return (
@@ -35,4 +35,4 @@ const FeedForm = () => {
   );
 };
 
-export default FeedForm;
+export default Feed;
