@@ -1,4 +1,4 @@
-import FeedForm from "../components/FeedForm";
+import Feed from "../components/Feed";
 
 export default function Home() {
   return (
@@ -9,9 +9,9 @@ export default function Home() {
             Writing
           </button>
         </div>
-        <FeedForm />
-        <FeedForm />
-        <FeedForm />
+        <Feed />
+        <Feed />
+        <Feed />
       </div>
     </div>
   );
