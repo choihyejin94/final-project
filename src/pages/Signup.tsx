@@ -41,7 +41,6 @@ export default function Signup() {
         }
       }
     });
-    console.log( data );
     if (error) {
       console.error('supabase auth error', error);
       return;
