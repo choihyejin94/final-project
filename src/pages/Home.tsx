@@ -1,6 +1,19 @@
-import Feed from "../components/Feed";
+import { useQuery } from '@tanstack/react-query';
+import Feed from '../components/Feed';
+import { fetchPosts } from '../api/feedApi';
+import { Database } from '../types/supabase';
+
+type FeedType = Database['public']['Tables']['feeds']['Row'];
 
 export default function Home() {
+  const { data: feeds, isLoading, error } = useQuery<FeedType[]>({
+    queryKey: ['feeds'],
+    queryFn: fetchPosts,
+  });
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  console.log(feeds);
+
   return (
     <div>
       <div>
@@ -9,9 +22,9 @@ export default function Home() {
             Writing
           </button>
         </div>
-        <Feed />
-        <Feed />
-        <Feed />
+        {feeds && feeds.map(feed => (
+          <Feed key={feed.id} feed={feed} />
+        ))}
       </div>
     </div>
   );
