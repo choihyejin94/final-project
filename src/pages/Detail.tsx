@@ -11,9 +11,13 @@ export default function Detail() {
           {'<'} Go Back
         </Link>
         <div className="flex gap-3 mr-9">
-          <button className="border border-black text-base w-12 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300">
+          {/* Link 경로 바꾸기 */}
+          <Link
+            to="/feeds/update/1"
+            className="flex justify-center border border-black text-base w-12 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300"
+          >
             Edit
-          </button>
+          </Link>
           <button className="border border-black text-base w-14 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300">
             Delete
           </button>
