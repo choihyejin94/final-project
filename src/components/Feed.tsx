@@ -19,7 +19,7 @@ const Feed = ({ feed }: { feed: FeedProps }) => {
 
   const { data: upvotes = [] } = useQuery<UpvoteProps[]>({
     queryKey: ['upvotes', feed.id],
-    queryFn: () => fetchUpvotes(feed.id),
+    queryFn: () => fetchUpvotes(feed.id)
   });
 
   const isLiked = upvotes.some((upvote) => upvote.feed_id === feed.id);
@@ -29,9 +29,9 @@ const Feed = ({ feed }: { feed: FeedProps }) => {
       <div className="flex flex-col w-[70rem] mb-3">
         <div className="bg-white border-2 border-black rounded-md flex flex-col justify-start p-8 w-[70rem] h-[10rem] shadow-lg">
           <h3 className="font-bold text-2xl mb-2">{feed.title}</h3>
-          <p>{feed.content}</p>
+          <p>{feed!.content}</p>
           <p className="mt-5 text-sm text-gray-500 text-end">
-            작성일 : <span>{new Date(feed.created_at).toLocaleDateString()}</span>
+            작성일 : <span>{new Date(feed!.created_at).toLocaleDateString()}</span>
           </p>
         </div>
         <div className="flex gap-3 my-2 justify-end">
