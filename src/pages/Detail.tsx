@@ -5,8 +5,10 @@ import Comment from '../components/Comment';
 import { useQuery } from '@tanstack/react-query';
 import { fetchFeedId } from '../api/feedApi';
 import { Database } from '../types/supabase';
+import { fetchCommentId } from '../api/commentApi';
 
 type FeedIdProps = Database['public']['Tables']['feeds']['Row'];
+type CommentIdProps = Database['public']['Tables']['comments']['Row'];
 
 export default function Detail() {
   const { id } = useParams();
@@ -14,6 +16,11 @@ export default function Detail() {
   const { data } = useQuery<FeedIdProps>({
     queryKey: ['feedId', id],
     queryFn: () => fetchFeedId(id!)
+  });
+
+  const { data: commentData } = useQuery<CommentIdProps[]>({
+    queryKey: ['commentId'],
+    queryFn: () => fetchCommentId(id!)
   });
 
   return (
@@ -38,11 +45,10 @@ export default function Detail() {
       <div className="bg-white border border-gray rounded-md flex flex-col justify-start p-8 mb-6 w-[70rem] shadow-lg">
         <div className="mb-5">
           <p className="font-bold text-lg">
-            <span className="mr-2">2</span>Comments
+            <span className="mr-2">{commentData?.length}</span>Comments
           </p>
         </div>
-        <Comment />
-        <Comment />
+        <div>{commentData && commentData.map((comment) => <Comment key={comment.id} comment={comment} />)}</div>
       </div>
       <CommentForm />
     </div>

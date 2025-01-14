@@ -1,6 +1,21 @@
 import profile_image from '../../public/image/profile_img.jpg';
 
-const Comment = () => {
+type UserProps = {
+  id: string;
+  email: string;
+  nickname: string;
+};
+
+type CommentProps = {
+  content: string | null;
+  created_at: string;
+  feed_id: string | null;
+  id: string;
+  user_id: string | null;
+  user?: UserProps;
+};
+
+const Comment = ({ comment }: { comment: CommentProps }) => {
   return (
     <>
       <div className="flex justify-between gap-8 mb-2 border-b border-b-stone-300 py-6">
@@ -9,8 +24,8 @@ const Comment = () => {
             <img src={profile_image} alt="profile_image" className="w-full h-full object-cover" />
           </div>
           <div className="ml-5">
-            <h4 className="font-bold text-lg">헤지니(nickname으로 수정예정)</h4>
-            <p className="mt-3">UI 이쁘게 좀 해봐봐! 지금은 넘 별로자나~ (댓글 수정예정)</p>
+            <h4 className="font-bold text-lg">{comment.user?.nickname}</h4>
+            <p className="mt-3">{comment.content}</p>
           </div>
         </div>
         <div className="flex flex-col items-end gap-3 mr-3">
