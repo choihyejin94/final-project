@@ -6,3 +6,11 @@ export const fetchPosts = async () => {
         throw new Error(error.message);
     } return data;
 };
+
+export const fetchFeedId = async (id : string) => {
+  const { data, error } = await supabase.from('feeds').select('*').eq('id', id).single();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
