@@ -8,22 +8,22 @@ export const fetchUpvotes = async (feedId: string) => {
   return data;
 };
 
-// export const addUpvote = async (user_id:string, feed_id:string):Promise<UpvoteProps> => {
-//   const { data, error } = await supabase.from('upvotes').insert([
-//     {
-//       user_id,
-//       feed_id,
-//     }
-//   ]);
-//   if (error) {
-//     throw new Error(error.message);
-//   }
-//   return data!;
-// }
+export const addUpvote = async ({ user_id, feed_id }: { user_id: string; feed_id: string }) => {
+  const { data, error } = await supabase.from('upvotes').insert([
+    {
+      user_id,
+      feed_id
+    }
+  ]);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data!;
+};
 
-// export const deleteUpvote = async (user_id: string, feed_id: string) => {
-//   const { error } = await supabase.from('upvotes').delete().match({ user_id, feed_id });
-//   if (error) {
-//     throw new Error(error.message);
-//   }
-// }
+export const deleteUpvote = async ({ user_id, feed_id }: { user_id: string; feed_id: string }) => {
+  const { error } = await supabase.from('upvotes').delete().match({ user_id, feed_id });
+  if (error) {
+    throw new Error(error.message);
+  }
+};

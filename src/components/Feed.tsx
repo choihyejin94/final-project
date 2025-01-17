@@ -3,9 +3,8 @@ import afterLike from '../../public/image/after_like.png';
 import comment from '../../public/image/comment.png';
 import { Database } from '../types/supabase';
 import { fetchComments } from '../api/commentApi';
-import { fetchUpvotes } from '../api/upvoteApi';
+import { addUpvote, deleteUpvote, fetchUpvotes } from '../api/upvoteApi';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import supabase from '../utils/supabase';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '../stores/useAuthStore';
 import { Link } from 'react-router-dom';
@@ -37,23 +36,14 @@ const Feed = ({ feed }: { feed: FeedProps }) => {
   }, [upvotes, user]);
 
   const deleteMutation = useMutation({
-    mutationFn: async (user_id: string) => {
-      await supabase.from('upvotes').delete().match({ user_id, feed_id: feed.id });
-    },
+    mutationFn: deleteUpvote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['upvotes'] });
     }
   });
 
   const addMutation = useMutation({
-    mutationFn: async (user_id: string) => {
-      await supabase.from('upvotes').insert([
-        {
-          user_id,
-          feed_id: feed.id
-        }
-      ]);
-    },
+    mutationFn: addUpvote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['upvotes'] });
     }
@@ -74,9 +64,9 @@ const Feed = ({ feed }: { feed: FeedProps }) => {
 
     const user_id = user.id;
     if (liked) {
-      deleteMutation.mutate(user_id!);
+      deleteMutation.mutate({ user_id, feed_id: feed.id });
     } else {
-      addMutation.mutate(user_id!);
+      addMutation.mutate({ user_id, feed_id: feed.id });
     }
     setLiked(!liked);
   };
