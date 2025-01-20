@@ -19,7 +19,7 @@ export default function Detail() {
   });
 
   const { data: commentData } = useQuery<CommentIdProps[]>({
-    queryKey: ['commentId'],
+    queryKey: ['comments'],
     queryFn: () => fetchCommentId(id!)
   });
 
