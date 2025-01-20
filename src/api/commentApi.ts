@@ -27,3 +27,10 @@ export const addComment = async ({ content, user_id, feed_id }: {content:string,
   }
   return data;
 };
+
+export const deleteComment = async (commentId: string) => {
+  const { error } = await supabase.from('comments').delete().eq('id', commentId);
+  if (error) {
+    throw new Error(error.message);
+  }
+};

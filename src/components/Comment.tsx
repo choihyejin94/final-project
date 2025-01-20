@@ -1,9 +1,29 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import profile_image from '../../public/image/profile_img.jpg';
 import { useAuthStore } from '../stores/useAuthStore';
 import { CommentProps } from '../types/commentTypes';
+import { deleteComment } from '../api/commentApi';
 
 const Comment = ({ comment }: { comment: CommentProps }) => {
   const { user } = useAuthStore();
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteComment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['comments'] });
+    }
+  });
+
+  const handleDelete = () => {
+    if (window.confirm(`"${comment.content}" 댓글을 삭제하시겠습니까 ?`)) {
+      deleteMutation.mutate(comment.id);
+      window.alert('삭제했습니다 !')
+    }
+    else {
+      window.alert('취소 버튼을 클릭했습니다 !')
+    }
+  }
 
   return (
     <>
@@ -22,7 +42,10 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
             <button className="border border-black text-base w-12 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300">
               Edit
             </button>
-            <button className="border border-black text-base w-14 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300">
+            <button
+              onClick={handleDelete}
+              className="border border-black text-base w-14 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300"
+            >
               Delete
             </button>
           </div>

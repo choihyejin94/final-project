@@ -50,7 +50,7 @@ export default function Detail() {
         </div>
         <div>{commentData && commentData.map((comment) => <Comment key={comment.id} comment={comment} />)}</div>
       </div>
-      <CommentForm />
+      <CommentForm feedId={id} />
     </div>
   );
 }
