@@ -1,6 +1,6 @@
 import supabase from '../utils/supabase';
 
-export const fetchComments = async (feedId : string) => {
+export const fetchComments = async (feedId: string) => {
   const { data, error } = await supabase.from('comments').select('*').eq('feed_id', feedId);
   if (error) {
     throw new Error(error.message);
@@ -20,7 +20,15 @@ export const fetchCommentId = async (feedId: string) => {
   return data;
 };
 
-export const addComment = async ({ content, user_id, feed_id }: {content:string, user_id:string, feed_id:string}) => {
+export const addComment = async ({
+  content,
+  user_id,
+  feed_id
+}: {
+  content: string;
+  user_id: string;
+  feed_id: string;
+}) => {
   const { data, error } = await supabase.from('comments').insert({ content, user_id, feed_id });
   if (error) {
     throw new Error(error.message);
@@ -34,3 +42,15 @@ export const deleteComment = async (commentId: string) => {
     throw new Error(error.message);
   }
 };
+
+
+export const updateComment = async (commentId : string, content: string) => {
+  const { error } = await supabase.from('comments').update({ content: content }).eq('id', commentId);
+  if (error) {
+    throw new Error(error.message)
+  }
+  return new Promise((res) => res(true));
+};
+
+// 1. comment id 로 조회하기
+// 2. 수정
