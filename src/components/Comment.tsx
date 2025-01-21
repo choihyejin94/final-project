@@ -39,7 +39,7 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 
   // 댓글 수정 완료 버튼에 적용
   const handleUpdate = () => {
-    updateMutation.mutate(comment.id, updateContent);
+    updateMutation.mutate({ commentId: comment.id, content: updateContent });
   };
 
   return (

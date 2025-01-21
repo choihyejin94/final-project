@@ -43,14 +43,10 @@ export const deleteComment = async (commentId: string) => {
   }
 };
 
-
-export const updateComment = async (commentId : string, content: string) => {
+export const updateComment = async ({ commentId, content }: { commentId: string; content: string }) => {
   const { error } = await supabase.from('comments').update({ content: content }).eq('id', commentId);
   if (error) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
   return new Promise((res) => res(true));
 };
-
-// 1. comment id 로 조회하기
-// 2. 수정
