@@ -39,6 +39,9 @@ const Feed = ({ feed }: { feed: FeedProps }) => {
     mutationFn: deleteUpvote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['upvotes'] });
+    },
+    onError: (error) => {
+      alert(`좋아요 삭제 실패: ${error.message}`);
     }
   });
 
@@ -46,6 +49,9 @@ const Feed = ({ feed }: { feed: FeedProps }) => {
     mutationFn: addUpvote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['upvotes'] });
+    },
+    onError: (error) => {
+      alert(`좋아요 추가 실패: ${error.message}`);
     }
   });
 

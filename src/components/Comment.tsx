@@ -16,6 +16,9 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
     mutationFn: deleteComment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['comments'] });
+    },
+    onError: (error) => {
+      alert(`댓글 삭제 실패: ${error.message}`);
     }
   });
 
@@ -34,6 +37,9 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['comments'] });
       setIsEditing(false);
+    },
+    onError: (error) => {
+      alert(`댓글 수정 실패: ${error.message}`);
     }
   });
 
@@ -41,7 +47,7 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
   const handleEditCancle = () => {
     setIsEditing(false);
     setUpdateContent(comment.content!);
-  }
+  };
 
   // 댓글 수정 완료 버튼에 적용
   const handleUpdate = () => {
@@ -57,31 +63,17 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
           </div>
           <div className="ml-5 flex-grow">
             <h4 className="font-bold text-lg">{comment.user?.nickname}</h4>
-            {isEditng ? (
-              <div className="flex gap-2">
+            <div className="flex gap-2">
+              {isEditng ? (
                 <textarea
                   value={updateContent}
                   onChange={(e) => setUpdateContent(e.target.value)}
-                  className="border border-gray-200 rounded-lg w-[56rem] h-[80px] p-3 resize-none"
+                  className="border border-gray-200 rounded-lg w-[56rem] h-[70px] p-3 resize-none"
                 />
-                <div className="flex flex-col items-end gap-3 mr-3">
-                  <button
-                    onClick={handleEditCancle}
-                    className="border border-black text-base w-14 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300"
-                  >
-                    Cancle
-                  </button>
-                  <button
-                    onClick={handleUpdate}
-                    className="border border-black text-base w-14 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300"
-                  >
-                    Update
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <p className="mt-3 ">{comment.content}</p>
-            )}
+              ) : (
+                <p className="mt-3 ">{comment.content}</p>
+              )}
+            </div>
           </div>
         </div>
         {user?.id === comment.user_id && (
@@ -101,7 +93,22 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
                   Delete
                 </button>
               </>
-            ) : null}
+            ) : (
+              <div className="flex flex-col items-end gap-3 mr-3">
+                <button
+                  onClick={handleEditCancle}
+                  className="border border-black text-base w-14 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300"
+                >
+                  Cancle
+                </button>
+                <button
+                  onClick={handleUpdate}
+                  className="border border-black text-base w-14 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300"
+                >
+                  Update
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

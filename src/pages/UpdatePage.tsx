@@ -29,6 +29,9 @@ export default function UpdatePage() {
       queryClient.invalidateQueries({ queryKey: ['feeds'] });
       alert('글 수정이 완료되었습니다 !');
       navigate('/');
+    },
+    onError: (error) => {
+      alert(`피드 수정 실패: ${error.message}`);
     }
   });
 
