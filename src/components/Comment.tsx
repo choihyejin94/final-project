@@ -56,7 +56,7 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 
   return (
     <>
-      <div className="flex justify-between gap-8 mb-2 border-b border-b-stone-300 py-6">
+      <div className="flex justify-between gap-3 mb-2 border-b border-b-stone-300 py-6">
         <div className="flex">
           <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
             <img src={profile_image} alt="profile_image" className="w-full h-full object-cover" />
