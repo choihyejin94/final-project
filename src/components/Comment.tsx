@@ -37,6 +37,12 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
     }
   });
 
+  // 댓글 수정 취소 버튼에 적용
+  const handleEditCancle = () => {
+    setIsEditing(false);
+    setUpdateContent(comment.content!);
+  }
+
   // 댓글 수정 완료 버튼에 적용
   const handleUpdate = () => {
     updateMutation.mutate({ commentId: comment.id, content: updateContent });
@@ -60,7 +66,7 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
                 />
                 <div className="flex flex-col items-end gap-3 mr-3">
                   <button
-                    onClick={() => setIsEditing(false)}
+                    onClick={handleEditCancle}
                     className="border border-black text-base w-14 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300"
                   >
                     Cancle
