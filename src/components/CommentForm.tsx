@@ -2,13 +2,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addComment } from '../api/commentApi';
 import { useState } from 'react';
 import { useAuthStore } from '../stores/useAuthStore';
-import { useParams } from 'react-router-dom';
 
-const CommentForm = () => {
+const CommentForm = ({ feedId }: { feedId: string |undefined}) => {
   const [comment, setComment] = useState('');
   const queryClient = useQueryClient();
   const { user } = useAuthStore();
-  const { id } = useParams();
 
   const addCommentMutation = useMutation({
     mutationFn: addComment,
@@ -21,9 +19,9 @@ const CommentForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (user?.id) {
-      addCommentMutation.mutate({ content: comment, user_id: user.id, feed_id: id! });
+      addCommentMutation.mutate({ content: comment, user_id: user.id, feed_id: feedId! });
     } else {
-      alert("로그인 후 이용해주세요 !")
+      alert('로그인 후 이용해주세요 !');
     }
   };
 
