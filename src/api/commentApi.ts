@@ -19,3 +19,11 @@ export const fetchCommentId = async (feedId: string) => {
   console.log({ data });
   return data;
 };
+
+export const addComment = async ({ content, user_id, feed_id }: {content:string, user_id:string, feed_id:string}) => {
+  const { data, error } = await supabase.from('comments').insert({ content, user_id, feed_id });
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
