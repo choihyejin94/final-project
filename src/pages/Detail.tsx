@@ -1,9 +1,9 @@
 import Feed from '../components/Feed';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import CommentForm from '../components/CommentForm';
 import Comment from '../components/Comment';
-import { useQuery } from '@tanstack/react-query';
-import { fetchFeedId } from '../api/feedApi';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { deleteFeed, fetchFeedId } from '../api/feedApi';
 import { Database } from '../types/supabase';
 import { fetchCommentId } from '../api/commentApi';
 import { useAuthStore } from '../stores/useAuthStore';
@@ -14,6 +14,7 @@ type CommentIdProps = Database['public']['Tables']['comments']['Row'];
 export default function Detail() {
   const { id } = useParams();
   const { user } = useAuthStore();
+  const navigate = useNavigate();
 
   const { data } = useQuery<FeedIdProps>({
     queryKey: ['feed', id],
@@ -24,6 +25,24 @@ export default function Detail() {
     queryKey: ['comments'],
     queryFn: () => fetchCommentId(id!)
   });
+
+  // feed 삭제 mutation
+  const deleteFeedMutation = useMutation({
+    mutationFn: deleteFeed,
+    onSuccess: () => {
+      navigate('/');
+    }
+  })
+
+  // 삭제 버튼 클릭 시 실행될 함수
+  const handleDeleteFeed = () => {
+    if (window.confirm(`'${data?.title}' 게시글을 삭제하시겠습니까 ?`)) {
+      deleteFeedMutation.mutate(data!.id);
+      window.alert('삭제했습니다 !')
+    } else {
+      window.alert('취소 버튼을 클릭했습니다 !');
+    }
+  }
 
   return (
     <div>
@@ -39,7 +58,10 @@ export default function Detail() {
             >
               Edit
             </Link>
-            <button className="border border-black text-base w-14 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300">
+            <button
+              onClick={handleDeleteFeed}
+              className="border border-black text-base w-14 h-6 text-black rounded-lg cursor-pointer hover:bg-black hover:text-white transition duration-300"
+            >
               Delete
             </button>
           </div>
