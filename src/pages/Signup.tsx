@@ -7,12 +7,12 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [nickName, setNickName] = useState('');
+  const [nickname, setNickname] = useState('');
 
   const signUpNewUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!nickName) {
+    if (!nickname) {
       alert('닉네임을 입력해주세요 !');
       return;
     }
@@ -37,7 +37,7 @@ export default function Signup() {
       password,
       options: {
         data: {
-          nickName
+          nickname
         }
       }
     });
@@ -48,7 +48,7 @@ export default function Signup() {
 
     const { error: loginError } = await supabase
       .from('users')
-      .insert([{ id: data.user!.id, email, nickname: nickName }])
+      .insert([{ id: data.user!.id, email, nickname: nickname }])
       .select();
     if (loginError) {
       console.error('supabase insert error', loginError);
@@ -57,7 +57,7 @@ export default function Signup() {
     setEmail('');
     setPassword('');
     setPasswordConfirm('');
-    setNickName('');
+    setNickname('');
 
     alert('회원가입이 완료되었습니다 !');
 
@@ -110,9 +110,9 @@ export default function Signup() {
             <p>NickName : </p>
             <input
               type={'nickname'}
-              placeholder={'NickName'}
-              value={nickName}
-              onChange={(e) => setNickName(e.target.value)}
+              placeholder={'Nickname'}
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
               className="border border-black rounded-md p-2 mb-3 text-lg w-[14rem] focus:outline-none focus:ring-2 focus:ring-black"
               required
             />
