@@ -13,6 +13,9 @@ const CommentForm = ({ feedId }: { feedId: string |undefined}) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['comments'] });
       setComment('');
+    },
+    onError: (error) => {
+      alert(`댓글 추가 실패: ${error.message}`);
     }
   });
 

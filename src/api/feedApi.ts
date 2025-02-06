@@ -34,3 +34,11 @@ export const updateFeed = async ({ title, content, feedId }: { title: string; co
     throw new Error(error.message);
   }
 };
+
+// 피드 삭제 API
+export const deleteFeed = async (feedId:string) => {
+  const { error } = await supabase.from('feeds').delete().eq('id', feedId);
+  if (error) {
+    throw new Error(error.message);
+  }
+}
