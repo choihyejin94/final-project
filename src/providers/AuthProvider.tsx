@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       data: { subscription }
     } = supabase.auth.onAuthStateChange((_, session) => {
       if (session && session.user.email) {
-        setUser({ id: session.user.id, email: session.user.email, nickname: session.user.user_metadata.nickName });
+        setUser({ id: session.user.id, email: session.user.email, nickname: session.user.user_metadata.nickname, img_url: session.user.user_metadata.img_url, });
       } else {
         setUser(null);
       }
