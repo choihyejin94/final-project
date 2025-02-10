@@ -1,10 +1,15 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
+import Header from './Header';
+import Footer from './Footer';
 
 export default function Layout() {
-    return (
-        <>
-            <header>헤더</header>
-            <Outlet/>
-        </>
-    )
+  return (
+    <div>
+      <Header />
+      <main className="max-w-6xl m-auto w-full mt-10">
+        <Outlet />
+      </main>
+      <Footer/>
+    </div>
+  );
 }
